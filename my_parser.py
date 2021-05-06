@@ -1,3 +1,5 @@
+def very_useful_function():
+	print("I'm very useful!")
 
 
 def convert_to_tokens(program):
