@@ -1,7 +1,7 @@
 # lisp_interpreter
 Lisp interpreter written in Python.
 
-It's not full intepreter, but it can do some fun stuff with it.
+It's not full intepreter, but it can do some fun stuff.
 
 ## How to run
 To run just write:
