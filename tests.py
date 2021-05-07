@@ -32,7 +32,7 @@ class TestParser(unittest.TestCase):
 		lisp_program = '( + 1 2 )'
 
 		tree = my_parser.build_tree(my_parser.convert_to_tokens(lisp_program))
-		self.assertEquals(my_parser.eval(tree), 3)
+		self.assertEqual(my_parser.eval(tree), 3)
 
 	def test_eval_nested_addition(self):
 
@@ -40,7 +40,7 @@ class TestParser(unittest.TestCase):
 		lisp_program = '( + 1 ( - 2 5))'
 
 		tree = my_parser.build_tree(my_parser.convert_to_tokens(lisp_program))
-		self.assertEquals(my_parser.eval(tree), -2)
+		self.assertEqual(my_parser.eval(tree), -2)
 
 	def test_create_var_and_do_sth_with_it(self):
 
@@ -53,11 +53,11 @@ class TestParser(unittest.TestCase):
 
 		result = my_parser.do_the_thing(lisp_program[1])
 
-		self.assertEquals(result, 20)
+		self.assertEqual(result, 20)
 
 		result = my_parser.do_the_thing(lisp_program[2])
 
-		self.assertEquals(result, 5)
+		self.assertEqual(result, 2.5)
 
 		result = my_parser.do_the_thing(lisp_program[3])
 
@@ -65,12 +65,35 @@ class TestParser(unittest.TestCase):
 
 		result = my_parser.do_the_thing(lisp_program[4])
 
-		self.assertEquals(result, -2)
+		self.assertEqual(result, -7)
 
-	def test_set
+	def test_equality(self):
 
+		prog = '(equal 1 2)'
+		self.assertFalse(my_parser.do_the_thing(prog))
 
+		prog = '(equal 2 2)'
+		self.assertTrue(my_parser.do_the_thing(prog))
 
+	def test_simply_if(self):
+
+		my_parser.do_the_thing('(defvar x 20)')
+
+		prog = '(if (equal x 10) (+ x 2) (+ x 1) )'
+
+		res = my_parser.do_the_thing(prog)
+
+		self.assertEqual(res, 21)
+
+	def test_define_function(self):
+
+		my_parser.do_the_thing('(deffun sum_till_0 (x) (  if (> x 0) (+ x (sum_till_0 ((- x 1))) ) 0 ))')
+
+		prog = '(sum_till_0 (6) )'
+
+		res = my_parser.do_the_thing(prog)
+
+		self.assertEqual(res, 21)
 
 
 if __name__ == '__main__':

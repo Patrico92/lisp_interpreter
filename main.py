@@ -13,7 +13,13 @@ while True:
 		print('Thanks for working with me!')
 		break
 
-	val = my_parser.eval(my_parser.build_tree(my_parser.convert_to_tokens(line)))
+
+	try:
+		val = my_parser.eval(my_parser.build_tree(my_parser.convert_to_tokens(line)))
+		if val is not None:
+			print(val)
+	except SyntaxError as e:
+		print(e)
 	
-	if val is not None:
-		print(val)
+
+
