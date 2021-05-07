@@ -25,6 +25,7 @@ def produce_start_env():
 	env['getl'] = lambda x, y: x[y]
 	env['append'] = lambda x,y: x.append(y)
 	env['setl'] = lambda x,y,z: x[0:y] + [z] + x[y+1:]
+	env['cdr'] = lambda x: x[1:]
 
 	return env
 
